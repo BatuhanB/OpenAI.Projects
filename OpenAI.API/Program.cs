@@ -1,11 +1,24 @@
+using OpenAI.GPT3.Extensions;
+using OpenAI.Service.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+//IConfiguration configuration = new ConfigurationBuilder()
+//	.SetBasePath(builder.Environment.ContentRootPath)
+//	.AddJsonFile("ApiSettings.json")
+//	.AddUserSecrets<Program>().Build();
+
+
+builder.Services.AddSingleton<TextCompletions>();
+builder.Services.AddOpenAIService(x => { x.ApiKey = "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"; });
 
 var app = builder.Build();
 
