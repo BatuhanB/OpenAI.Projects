@@ -16,44 +16,39 @@ namespace OpenAI.Service.Services
 
 		public async Task<string> Get(string prompt)
 		{
-			var model = new Completion();
-			model.Prompt = prompt;
-			model.Token = 500;
-			try
+			Completion model = new()
 			{
-				var result = await _service.Completions.CreateCompletion(new CompletionCreateRequest()
-				{
-					Prompt = model.Prompt,
-					MaxTokens = model.Token
-				}, TextDavinciV3);
+				Prompt = prompt,
+				Token = 500
+			};
 
-				if (result.Successful)
+			var result = await _service.Completions.CreateCompletion(new CompletionCreateRequest()
+			{
+				Prompt = model.Prompt,
+				MaxTokens = model.Token
+			}, TextDavinciV2);
+
+			if (result.Successful)
+			{
+				return model.Response = result.Choices[0].Text;
+			}
+			else
+			{
+				if (result.Error is null)
 				{
-					//Console.WriteLine(result.Choices.FirstOrDefault());
-					return model.Response = result.Choices[0].Text;
+					model.Error.Add("Unkown Error!");
+					throw new Exception(model.Error.ToString());
 				}
 				else
 				{
-					if (result.Error is null)
-					{
-						//throw new Exception("Unkown Error!");
-						model.Error.Add("Unkown Error!");
-						throw new Exception(model.Error.ToString());
-					}
-					else
-					{
-						//Console.WriteLine($"{result.Error.Code}: {result.Error.Message}");
-						model.Error.Add($"{result.Error.Code}: {result.Error.Message}");
-						throw new Exception(model.Error.ToString());
-					}
+					//model.Error.Add($"{result.Error.Code}: {result.Error.Message}");
+					//throw new Exception(model.Error.ToString());
+					throw new Exception(result.Error.ToString());
 				}
-				//Console.WriteLine(result.Choices.FirstOrDefault());
-				return model.Response = result.Choices[0].Text;
 			}
-			catch (Exception e)
-			{
-				throw e;
-			}
+			//Console.WriteLine(result.Choices.FirstOrDefault());
+			//return model.Response = result.Choices[0].Text;
+
 		}
 	}
 }
