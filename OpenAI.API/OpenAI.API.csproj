@@ -8,14 +8,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Content Remove="ApiSettings.json" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Include="ApiSettings.json" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="Betalgo.OpenAI.GPT3" Version="6.6.4" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.2" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
