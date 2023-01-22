@@ -41,13 +41,9 @@ namespace OpenAI.Service.Services
 				}
 				else
 				{
-					//model.Error.Add($"{result.Error.Code}: {result.Error.Message}");
-					//throw new Exception(model.Error.ToString());
 					throw new Exception(result.Error.ToString());
 				}
 			}
-			//Console.WriteLine(result.Choices.FirstOrDefault());
-			//return model.Response = result.Choices[0].Text;
 
 		}
 	}

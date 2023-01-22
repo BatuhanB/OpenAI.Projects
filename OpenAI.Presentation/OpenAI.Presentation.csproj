@@ -6,4 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\OpenAI.Service\OpenAI.Service.csproj" />
+  </ItemGroup>
+
 </Project>
